@@ -9,14 +9,15 @@
   "author": "",
   "license": "",
   "babel": {
-  "presets": [
-    "env",
-    "react"
-  ]
-},
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
   "dependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "socket.io": "^2.1.0"
   },
