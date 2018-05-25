@@ -1,11 +1,7 @@
-import {SIGNED_IN} from '../constants/sample_constant'
+import {SIGNED_IN} from '../constants/constants'
 
-let user={
-    username:null,
-    password:null
-}
 
-export default (state =user,action)=>{
+export default (state ={},action)=>{
     switch (action.type){
         case SIGNED_IN:
             const { username,password }=action;

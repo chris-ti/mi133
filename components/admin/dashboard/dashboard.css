@@ -1,0 +1,24 @@
+.header{
+    margin-top: 2%;
+}
+
+.heading{
+    margin-left: 30%;
+    float: left;
+}
+.loginButton{
+    display: flex;
+    float: right;
+}
+.container{
+    width: 2000px;
+    height: 1000px;
+}
+.table{
+    width: 87%;
+    margin-left: 4%;
+}
+.logbook{
+    padding: 10%;
+}
+
