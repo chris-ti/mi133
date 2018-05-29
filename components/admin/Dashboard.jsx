@@ -1,8 +1,8 @@
 import React from 'react';
-import "./Public_dashboard.css"
+import "./Dashboard.css"
 import { connect } from "react-redux"
 import {browserHistory} from "react-router";
-import {loadingDashboard} from "../../../actions/Admin_actions";
+import {loadingDashboard} from "../../actions/Admin_actions";
 
 class dashboard extends React.Component{
 

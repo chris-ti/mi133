@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import RegisterPage from "./RegisterPage";
-import './Admin_dashboard.css'
+import './Admin_Portal.css'
 import {browserHistory} from "react-router";
 
 class UserManagement extends Component{

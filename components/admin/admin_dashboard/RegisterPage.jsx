@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Admin_dashboard.css"
+import "./Admin_Portal.css"
 import { connect } from "react-redux"
 import Link from "react-router/es/Link";
 import {browserHistory} from "react-router";
@@ -16,7 +16,8 @@ class RegisterPage extends React.Component {
             last_name: '',
             username: '',
             password: '',
-            email: ''
+            email: '',
+            role: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,6 +26,7 @@ class RegisterPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log(this.state)
         const {dispatch}=this.props;
         dispatch(sendRegisterDetails(this.state));
     }
@@ -58,6 +60,13 @@ class RegisterPage extends React.Component {
                     <label htmlFor="password">Password</label>
                     <input type="password" className="form-control register" name="password"
                            onChange={event => this.setState({password: event.target.value})}/>
+
+                        <label htmlFor="password">Role</label>
+                        <select type="password" className="form-control register" name="role"  onChange={event =>{this.setState({role: event.target.value })}}>
+                            <option></option>
+                            <option value={"ADMIN"}>Admin</option>
+                            <option value={"MEMBER"}>Member</option>
+                        </select>
 
                     <div className="form-group">
                         <br/>

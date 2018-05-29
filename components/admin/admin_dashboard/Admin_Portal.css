@@ -3,12 +3,25 @@
     float: left;
 }
 
+.adminheader{
+    margin-top: 2%;
+    width: 1200px;
+}
+
 .usermanagement-title{
     margin-top: 2%;
     text-align: center;
     margin-left: 9%;
 }
 
+.usermanagementbutton{
+    float: right;
+    margin-right: 2%;
+}
+
+.adminSignout{
+    float: right;
+}
 .register{
     width: 75%;
 }

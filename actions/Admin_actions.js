@@ -1,4 +1,4 @@
-import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE} from "../constants/constants";
+import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE,REGISTER_SUCCESS,LOGOUT} from "../constants/constants";
 import axios from "axios/index";
 import {browserHistory} from "react-router";
 
@@ -18,11 +18,12 @@ export function sendLoginDetails(user) {
         axios.post('http://localhost:4200/logbook/login', {username, password})
             .then(res => {
                 if (res.status === 200) {
-                    browserHistory.push('/admin_dashboard');
-                } else {
-                    alert("Login Failed");
+                    if(res.data.role ==="ADMIN"){
+                        browserHistory.push('/admin_dashboard');
+                    }else{
+                        browserHistory.push('/member_dashboard');
+                    }
                 }
-                console.log(res.data);
                 dispatch(logUser(username, password));
             },
                 function (error) {
@@ -32,7 +33,13 @@ export function sendLoginDetails(user) {
     function failure(error) { return { type: LOGIN_FAILURE} }
 }
 
-
+export function logout(){
+    return dispatch=>{
+        dispatch(logoutUser());
+        browserHistory.push('/');
+    }
+    function logoutUser() {  return { type: LOGOUT } }
+}
 
 export function sendRegisterDetails(user) {
     axios.post('http://localhost:4200/logbook/registerUser', user)

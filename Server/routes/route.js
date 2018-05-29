@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var User = require('../models/admin');
+var User = require('../models/user');
 const LogBookRouter = express.Router();
 
 const LogBook = require('../models/logbook');
@@ -35,21 +35,23 @@ LogBookRouter.route('/login').post(
                     console.log('Invalid Password');
                     return  res.status(401).send(' Invalid Password');
                 }
-                // User and password both match, return user from
+
                 // res method which will be treated like success
-                return  res.status(200).send(" successfully logged in ");
+                return  res.status(200).send({role:user.role});
             }
         );
     });
 
 var isValidPassword = function(user, password){
+    //library for hashing
     var bCrypt = require('bcrypt');
-    console.log(password+" "+user.password);
+    // compares entered password with hashed password
     return bCrypt.compareSync(password, user.password);
 }
 
 LogBookRouter.route('/registerUser').post(function (req, res) {
     var username = req.body.username;
+    //fetches user using username from mongodb
     User.findOne({'username': username},function(err, user) {
         // In case of any error return
         if (err){
@@ -69,8 +71,9 @@ LogBookRouter.route('/registerUser').post(function (req, res) {
             newUser.username = req.param('username');
             newUser.password = createHash(req.param('password'));
             newUser.email = req.param('email');
-            newUser.firstName = req.param('firstName');
-            newUser.lastName = req.param('lastName');
+            newUser.first_Name = req.param('first_name');
+            newUser.last_Name = req.param('last_name');
+            newUser.role = req.param('role')
             // save the user
             newUser.save(function(err) {
                 if (err){
@@ -78,6 +81,7 @@ LogBookRouter.route('/registerUser').post(function (req, res) {
                     throw err;
                 }
                 console.log('User Registration succesful');
+                //sends response back with success response
                 return res.send('User Registration succesful');
             });
         }
