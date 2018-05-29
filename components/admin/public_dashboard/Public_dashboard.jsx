@@ -1,5 +1,5 @@
 import React from 'react';
-import "./dashboard.css"
+import "./Public_dashboard.css"
 import { connect } from "react-redux"
 import {browserHistory} from "react-router";
 import {loadingDashboard} from "../../../actions/Admin_actions";

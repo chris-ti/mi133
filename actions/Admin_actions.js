@@ -1,4 +1,6 @@
-import {LOG_BOOK, SIGNED_IN} from "../constants/constants";
+import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE} from "../constants/constants";
+import axios from "axios/index";
+import {browserHistory} from "react-router";
 
 let boat={
     id:"",
@@ -9,10 +11,48 @@ let boat={
     arrival:""
 }
 
-export function logUser(user) {
-    const { username,password }=user;
+
+export function sendLoginDetails(user) {
+    const {username, password} = user;
+    return dispatch => {
+        axios.post('http://localhost:4200/logbook/login', {username, password})
+            .then(res => {
+                if (res.status === 200) {
+                    browserHistory.push('/admin_dashboard');
+                } else {
+                    alert("Login Failed");
+                }
+                console.log(res.data);
+                dispatch(logUser(username, password));
+            },
+                function (error) {
+                    dispatch(failure(error))
+                });
+    };
+    function failure(error) { return { type: LOGIN_FAILURE} }
+}
+
+
+
+export function sendRegisterDetails(user) {
+    axios.post('http://localhost:4200/logbook/registerUser', user)
+        .then(res => console.log(res.data));
+    return dispatch => {
+        dispatch(registerUser(user));
+    }
+}
+
+
+export function logUser(username,password) {
     const action={
         type: SIGNED_IN,username,password
+    }
+    return action;
+}
+
+export function registerUser(user) {
+    const action={
+        type: REGISTER_SUCCESS,user
     }
     return action;
 }

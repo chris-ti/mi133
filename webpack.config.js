@@ -9,7 +9,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+          use: [
+              {
+                  loader: 'babel-loader',
+                  options: {
+                      presets: ['react','stage-3']
+                  }
+              }
+          ],
       },{
             test: /\.css$/,
             use: [ 'style-loader', 'css-loader' ]
@@ -32,7 +39,8 @@ module.exports = {
       new HtmlWebpackPlugin({template: __dirname + '/index.html'})
   ],
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+      historyApiFallback: true
   }
 
 };

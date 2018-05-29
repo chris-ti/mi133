@@ -1,10 +1,10 @@
-import {createStore} from "redux"
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import store, {history} from "../store/configureStore"
+import routes from '../routes/routes';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import routes from '../routes';
 import {Router} from 'react-router'
 
 
@@ -13,7 +13,6 @@ import {Router} from 'react-router'
 export default class App extends React.Component {
     render() {
         return <div className="root component">
-            <Loginview/>
           </div>
     }
 }

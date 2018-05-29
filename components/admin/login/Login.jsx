@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux"
-import { logUser} from "../../../actions/Admin_actions";
+import { sendLoginDetails} from "../../../actions/Admin_actions";
 import "./Login.css"
+import axios from "axios/index";
 import store from "../../../store/configureStore";
 import {browserHistory} from "react-router";
 
@@ -22,11 +23,15 @@ onSubmit(){
             "password": password
         }
         const {dispatch}=this.props;
-        dispatch(logUser(user));
-    }
+        dispatch(sendLoginDetails(user));
+       }
+   /*const data= {id:"1",boatName:"boat1",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()}
+    axios.post('http://localhost:4200/logbook/add', data)
+        .then(res => console.log(res.data));*/
+
 }
 render(){
-  return<div>
+  return<div className={"loginContainer"}>
       <div>
           <button className={"btn btn-primary dashboardButton"}onClick={ ()=>browserHistory.push('/')}>DashBoard</button>
       </div>

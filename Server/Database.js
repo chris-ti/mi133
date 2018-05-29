@@ -1,18 +1,3 @@
-class db{
-function createTrip(){
-
-}
-
-function joinTrip(){
-
-}
-
-function startTrip(){
-
-}
-
-function endTrip(){
-
-}
-
+module.exports = {
+    DB: 'mongodb://localhost:27017/logbook'
 }

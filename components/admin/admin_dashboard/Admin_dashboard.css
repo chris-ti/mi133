@@ -1,0 +1,23 @@
+.adminHeading{
+    margin-left: 36%;
+    float: left;
+}
+
+.usermanagement-title{
+    margin-top: 2%;
+    text-align: center;
+    margin-left: 9%;
+}
+
+.register{
+    width: 75%;
+}
+
+.registerPage{
+    width: 700px;
+    float: left;
+}
+.dashboardButtonForUM{
+    float: right;
+    margin-right: 5%;
+}
