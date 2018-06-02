@@ -1,0 +1,27 @@
+.memberHeader{
+    margin-top: 2%;
+}
+
+.userSignout{
+    display: flex;
+    float: right;
+    margin-top: -4%;
+}
+.memberHeading{
+    text-align: center;
+}
+
+.memberContainer{
+    max-width: 1500px;
+    height: 500px;
+
+}
+.table{
+    width: 87%;
+}
+.logbook{
+    padding: 5%;
+    float: left;
+    width: 900px;
+}
+

@@ -2,18 +2,11 @@ const express = require('express');
 const app = express();
 var User = require('../models/user');
 const LogBookRouter = express.Router();
-
+const ensureAuthenticated = require('../util/ensureAuthenticated');
 const LogBook = require('../models/logbook');
 
-LogBookRouter.route('/add').post(function (req, res) {
-    const logBook = new LogBook(req.body);
-    logBook.save()
-        .then(record => {
-            res.json('Server added successfully');
-        })
-        .catch(err => {
-            res.status(400).send("unable to save to database");
-        });
+LogBookRouter.route('/add').post(ensureAuthenticated,function (req, res) {
+   res.send("Successfull")
 });
 
 LogBookRouter.route('/login').post(

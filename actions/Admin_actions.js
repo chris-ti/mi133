@@ -15,7 +15,7 @@ let boat={
 export function sendLoginDetails(user) {
     const {username, password} = user;
     return dispatch => {
-        axios.post('http://localhost:4200/logbook/login', {username, password})
+        axios.post('http://localhost:4200/logbook/auth/login', {username, password})
             .then(res => {
                 if (res.status === 200) {
                     if(res.data.role ==="ADMIN"){
@@ -24,7 +24,7 @@ export function sendLoginDetails(user) {
                         browserHistory.push('/member_dashboard');
                     }
                 }
-                dispatch(logUser(username, password));
+                dispatch(logUser(res.data));
             },
                 function (error) {
                     dispatch(failure(error))
@@ -35,6 +35,7 @@ export function sendLoginDetails(user) {
 
 export function logout(){
     return dispatch=>{
+        axios.post('http://localhost:4200/logbook/add')
         dispatch(logoutUser());
         browserHistory.push('/');
     }
@@ -50,9 +51,9 @@ export function sendRegisterDetails(user) {
 }
 
 
-export function logUser(username,password) {
+export function logUser(payload) {
     const action={
-        type: SIGNED_IN,username,password
+        type: SIGNED_IN,payload
     }
     return action;
 }

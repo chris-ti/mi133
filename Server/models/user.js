@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
+var _ = require('lodash');
 
 var user = new Schema({
     id: {
@@ -28,4 +29,6 @@ var user = new Schema({
     collection: 'user'
 });
 
-module.exports = mongoose.model('user',user)
+
+
+module.exports = mongoose.model('user',user);

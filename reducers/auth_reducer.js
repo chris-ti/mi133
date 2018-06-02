@@ -5,14 +5,10 @@ let user ={
     password:''
 };
 
-export default (state ={},action)=>{
+export default (state={},action)=>{
     switch (action.type){
         case SIGNED_IN:
-            const { username,password }=action;
-            console.log(username,password);
-            user.username=username;
-            user.password=password;
-            return user;
+            return {...state,userInfo:action.payload};
         case LOGIN_FAILURE:
             alert("Invalid Password");
             return {};
