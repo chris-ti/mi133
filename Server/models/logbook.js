@@ -1,21 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var boat = require('./boat.js')
+var destination= require('./destination.js')
 
-
-var logbook = new Schema({
-    id: {
-        type: String
-    },
-    bootName: {
-        type: String
-    },
-    crew: [
-        {
-            type: String
-        }
-    ],
-    destination:{
-        type:String
+va0r logbook = new Schema({
+    boat: {
+		type: boat
+	},
+	destination:{
+		type: destination
     },
     departure:{
         type:Date

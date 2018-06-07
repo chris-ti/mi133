@@ -1,0 +1,17 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+
+var destination = new Schema({
+    destination: {
+        type: String
+    },
+    Traveltime: {
+        type: Integer
+    }
+},{
+    collection: 'destination'
+});
+
+module.exports = destination;
+module.exports = mongoose.model('destination', destination);
