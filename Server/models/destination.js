@@ -7,11 +7,10 @@ var destination = new Schema({
         type: String
     },
     Traveltime: {
-        type: Integer
+        type: Number
     }
 },{
     collection: 'destination'
 });
 
-module.exports = destination;
 module.exports = mongoose.model('destination', destination);

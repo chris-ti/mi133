@@ -3,12 +3,16 @@ var Schema = mongoose.Schema;
 var boat = require('./boat.js')
 var destination= require('./destination.js')
 
-va0r logbook = new Schema({
+var logbook = new Schema({
     boat: {
-		type: boat
+		type: Schema.Types.ObjectId,
+		required: true,
+		ref: boat
 	},
 	destination:{
-		type: destination
+		type: Schema.Types.ObjectId,
+		required: true,
+		ref: destination
     },
     departure:{
         type:Date
@@ -22,3 +26,7 @@ va0r logbook = new Schema({
 });
 
 module.exports = mongoose.model('logbook', logbook);
+
+//table address book example contacts.js/meapi.js --> save function carries /id withit. use id in poo
+ 
+ 

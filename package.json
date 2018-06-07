@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "node ./Server/server.js && webpack-dev-server --config ./webpack.config.js --mode development",
     "build": "webpack --config webpack.config.js && move dist ./Server/"
   },
   "author": "",

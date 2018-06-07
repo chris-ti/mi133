@@ -12,11 +12,10 @@ var boat = new Schema({
         }
     ],
     maxcrew:{
-        type: Integer
+        type: Number
     }
 },{
     collection: 'boat'
 });
 
-module.exports = boat;
 module.exports = mongoose.model('boat', boat);
