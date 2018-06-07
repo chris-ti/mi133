@@ -39,8 +39,12 @@ module.exports = {
       new HtmlWebpackPlugin({template: __dirname + '/index.html'})
   ],
   devServer: {
-    contentBase: './dist',
-      historyApiFallback: true
+      proxy: {
+          "/api": {
+              target: "http://localhost:4200/api",
+              pathRewrite: {"^/api": ""},
+          }
+      }
   }
 
 };
