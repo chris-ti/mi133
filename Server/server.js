@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
     res.sendFile('/index.html', { root: 'Server/dist' });
 });
 
-app.use('/logbook',LogBookRouter);
+app.use('/api',LogBookRouter);
 app.listen(PORT, function(){
     console.log('Server is running on Port: ',PORT);
 });
