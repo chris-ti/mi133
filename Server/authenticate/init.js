@@ -22,15 +22,6 @@ module.exports = function initAuth(app){
     app.use(passport.session());
     passport.use('local', new LocalStrategy (
         function(username, password,done) {
-            let temp={ _id: '5b0dafc1a1454d394cb81145',
-                username: 'test12',
-                password: '$2b$10$xgxI2WURzZggRILoeP0ndOwK5DjgQ0JeolB6/yNL95SlvmHJ7kyiS',
-                email: 'yatishkumar.r@gmail.com',
-                first_Name: 'yatish',
-                last_Name: 'kumar',
-                role: 'ADMIN',
-                __v: 0 };
-
             if (!_.isString(username) || _.isEmpty(username)) {
                 return done(null, false, { message: 'Incorrect Username.' });
             }
@@ -52,7 +43,6 @@ module.exports = function initAuth(app){
     ));
 
     passport.serializeUser(function(user, done) {
-        console.log(user)
         done(null, user._id);
     });
 

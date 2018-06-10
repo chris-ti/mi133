@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import RegisterPage from "./RegisterPage";
 import './Admin_Portal.css'
 import {browserHistory} from "react-router";
+import RemoveMember from "./RemoveMember"
 
 class UserManagement extends Component{
     render(){
@@ -12,8 +13,9 @@ class UserManagement extends Component{
                 </div>
                 <h1>USER MANAGEMENT</h1>
             </div>
-            <div className={"container"}>
+            <div className={"usermgmt_container"}>
                 <div className={"registerPage"}><RegisterPage/></div>
+                <div className={"removeMemberPage"}><RemoveMember/></div>
             </div>
 
         </div>)

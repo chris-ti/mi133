@@ -1,6 +1,7 @@
-import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE,REGISTER_SUCCESS,LOGOUT} from "../constants/constants";
+import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE, REGISTER_SUCCESS, LOGOUT, REGISTER_FAILURE} from "../constants/constants";
 import axios from "axios/index";
 import {browserHistory} from "react-router";
+import {USER_LIST} from "../constants/Admin_Constants";
 
 let boat={
     id:"",
@@ -35,7 +36,6 @@ export function sendLoginDetails(user) {
 
 export function logout(){
     return dispatch=>{
-        axios.post('/api/add')
         dispatch(logoutUser());
         browserHistory.push('/');
     }
@@ -43,27 +43,56 @@ export function logout(){
 }
 
 export function sendRegisterDetails(user) {
-    axios.post('http://localhost:4200/logbook/registerUser', user)
+    axios.post('/api/auth/registerUser', user)
         .then(res => console.log(res.data));
     return dispatch => {
-        dispatch(registerUser(user));
+        dispatch(registerUser(user))
+    ,
+        function (error) {
+            dispatch(registerFailure(error))
+        };
     }
+    function registerFailure(error) { return { type: REGISTER_FAILURE} }
 }
 
 
-export function logUser(payload) {
+function logUser(payload) {
     const action={
         type: SIGNED_IN,payload
     }
     return action;
 }
 
-export function registerUser(user) {
+function registerUser(user) {
     const action={
         type: REGISTER_SUCCESS,user
     }
     return action;
 }
+
+
+export function loadAllUsers(){
+    return dispatch => {
+        axios.get('/api/getAllUsers').then(res => {
+            console.log(res.data)
+               dispatch(loadReceivedUser(res.data))
+            });
+    }
+}
+
+function loadReceivedUser(data) {
+    return{ type: USER_LIST , data};
+}
+
+export function deleteUserAction(_id) {
+    return dispatch => {
+        axios.delete(`/api/deleteUser/${_id}`).then(res => {
+            console.log(res.data)
+            dispatch(loadReceivedUser(res.data))
+        });
+    }
+}
+
 
 export function loadingDashboard() {
     const data=[];

@@ -7,16 +7,10 @@ var user = new Schema({
     id: {
         type: String
     },
+    name: {
+        type: String
+    },
     username: {
-        type: String
-    },
-    email:{
-        type: String
-    },
-    first_Name: {
-        type: String
-    },
-    last_Name:{
         type: String
     },
     password:{

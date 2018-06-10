@@ -5,6 +5,7 @@ export function registration(state = {}, action) {
     case userConstants.REGISTER_SUCCESS:
       return {};
     case userConstants.REGISTER_FAILURE:
+        alert("Failed to register");
       return {};
     default:
       return state

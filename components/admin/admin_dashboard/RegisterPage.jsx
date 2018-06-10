@@ -12,70 +12,84 @@ class RegisterPage extends React.Component {
         super(props);
 
         this.state = {
-            first_name: '',
-            last_name: '',
-            username: '',
-            password: '',
-            email: '',
-            role: []
+            user: {
+                name: '',
+                username: '',
+                password: '',
+                role: ''
+            },
+            submitted: false
         };
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
+    handleChange(event) {
+        const { name, value } = event.target;
+        const { user } = this.state;
+        this.setState({
+            user: {
+                ...user,
+                [name]: value
+            }
+        });
+    }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state)
-        const {dispatch}=this.props;
-        dispatch(sendRegisterDetails(this.state));
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        console.log(user)
+        const { dispatch } = this.props;
+        if (user.name && user.username && user.password && user.role) {
+            dispatch(sendRegisterDetails(this.state));
+        }
     }
-
     render() {
-        //Validation needs to be implemented
-
-        return <div className="col-md-6 col-md-offset-3">
+        const { user, submitted } = this.state;
+        return (
+            <div className="col-md-6 col-md-offset-3">
                 <h2>Register User</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
-                    <label htmlFor="firstname"> First Name</label>
-                    <input type="text" className="form-control register" name="first_name"
-                           onChange={event => this.setState({first_name: event.target.value})}/>
-
-
-                    <label htmlFor="last_name">Last Name</label>
-                    <input type="text" className="form-control register" name="last_name"
-                           onChange={event => this.setState({last_name: event.target.value})}/>
-
-
-                    <label htmlFor="email">Email</label>
-                    <input type="text" className="form-control register" name="email"
-                           onChange={event => this.setState({email: event.target.value})}/>
-
-
-                    <label htmlFor="username">Username</label>
-                    <input type="text" className="form-control register" name="username"
-                           onChange={event => this.setState({username: event.target.value})}/>
-
-
-                    <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control register" name="password"
-                           onChange={event => this.setState({password: event.target.value})}/>
-
+                    <div className={'form-group' + (submitted && !user.name ? ' has-error' : '')}>
+                        <label htmlFor="name"> Full Name</label>
+                        <input type="text" className="form-control register" name="name" value={user.name} onChange={this.handleChange} />
+                        {submitted && !user.name &&
+                        <div className="help-block"> Name is required</div>
+                        }
+                    </div>
+                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
+                        <label htmlFor="username">Username</label>
+                        <input type="text" className="form-control register" name="username" value={user.username} onChange={this.handleChange} />
+                        {submitted && !user.username &&
+                        <div className="help-block">username is required</div>
+                        }
+                    </div>
+                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className="form-control register" name="password" value={user.password} onChange={this.handleChange} />
+                        {submitted && !user.password &&
+                        <div className="help-block">Password is required</div>
+                        }
+                    </div>
+                    <div className={'form-group' + (submitted && !user.role ? ' has-error' : '')}>
                         <label htmlFor="password">Role</label>
-                        <select type="password" className="form-control register" name="role"  onChange={event =>{this.setState({role: event.target.value })}}>
+                        <select  className="form-control register" name="role" value={user.role} onChange={this.handleChange}>
                             <option></option>
                             <option value={"ADMIN"}>Admin</option>
-                            <option value={"MEMBER"}>Member</option>
+                            <option value={"MEMBER"}>User</option>
                         </select>
-
+                        {submitted && !user.role &&
+                        <div className="help-block">Role is required</div>
+                        }
+                    </div>
                     <div className="form-group">
-                        <br/>
                         <button className="btn btn-primary">Register</button>
-                        <Link to="/admin_dashboard" className="btn btn-link">Cancel</Link>
+                        <Link to="/Admin_dashboard" className="btn btn-link">Cancel</Link>
                     </div>
                 </form>
             </div>
-
+        );
     }
 }
 

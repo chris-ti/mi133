@@ -28,10 +28,6 @@ initAuth(app);
 AuthAPI(LogBookRouter);
 app.use(express.static('build'));
 
-app.get('*', (req, res) => {
-    res.sendFile('/index.html', { root: 'Server/dist' });
-});
-
 app.use('/api',LogBookRouter);
 app.listen(PORT, function(){
     console.log('Server is running on Port: ',PORT);
