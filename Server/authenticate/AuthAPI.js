@@ -40,7 +40,7 @@ module.exports= function authApi(route) {
                     }
                     console.log('User Registration succesful');
                     //sends response back with success response
-                    return res.send('User Registration succesful');
+                    return res.send(newUser);
                 });
             }
         });

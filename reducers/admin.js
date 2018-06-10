@@ -1,5 +1,5 @@
-import {LOG_BOOK, SIGNED_IN} from "../constants/constants";
-import {USER_LIST} from "../constants/Admin_Constants";
+import {LOG_BOOK, REGISTER_FAILURE, REGISTER_SUCCESS, SIGNED_IN} from "../constants/constants";
+import {REMOVE_USER, USER_LIST} from "../constants/Admin_Constants";
 
 
 export function logBook (state ={},action){
@@ -12,10 +12,26 @@ export function logBook (state ={},action){
 
 }
 
+const refreshAfterDelete=(state,id)=>{
+    state=state.filter(user=> user._id!==id)
+    console.log(state)
+    return state;
+}
+
 export function userList(state={},action) {
+    let list = [];
     switch (action.type){
         case USER_LIST:
-            return Object.assign([],action.data);
+            list = Object.assign([],action.data);
+            return list
+        case REMOVE_USER:
+            list = refreshAfterDelete(state,action.userId);
+            return list;
+        case REGISTER_SUCCESS:
+            list = [...state,action.user]
+            return list;
+        case REGISTER_FAILURE:
+            alert('Registration Failed');
         default:
             return state;
     }

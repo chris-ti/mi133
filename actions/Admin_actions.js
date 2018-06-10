@@ -1,7 +1,7 @@
 import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE, REGISTER_SUCCESS, LOGOUT, REGISTER_FAILURE} from "../constants/constants";
 import axios from "axios/index";
 import {browserHistory} from "react-router";
-import {USER_LIST} from "../constants/Admin_Constants";
+import {REMOVE_USER, USER_LIST} from "../constants/Admin_Constants";
 
 let boat={
     id:"",
@@ -43,15 +43,16 @@ export function logout(){
 }
 
 export function sendRegisterDetails(user) {
-    axios.post('/api/auth/registerUser', user)
-        .then(res => console.log(res.data));
+
     return dispatch => {
-        dispatch(registerUser(user))
-    ,
-        function (error) {
-            dispatch(registerFailure(error))
-        };
-    }
+        axios.post('/api/auth/registerUser', user)
+            .then(res =>
+                dispatch(registerUser(res.data))
+            ),function (error) {
+                    dispatch(registerFailure(error))
+                }
+
+    };
     function registerFailure(error) { return { type: REGISTER_FAILURE} }
 }
 
@@ -87,12 +88,15 @@ function loadReceivedUser(data) {
 export function deleteUserAction(_id) {
     return dispatch => {
         axios.delete(`/api/deleteUser/${_id}`).then(res => {
-            console.log(res.data)
-            dispatch(loadReceivedUser(res.data))
+            console.log(res.data);
+            dispatch(updateDeletedUser(_id))
         });
     }
 }
 
+function updateDeletedUser(userId) {
+    return {type: REMOVE_USER , userId };
+}
 
 export function loadingDashboard() {
     const data=[];

@@ -12,11 +12,15 @@ LogBookRouter.route('/getAllUsers').get(ensureAuthenticated,function (req, res) 
 });
 
 LogBookRouter.route('/deleteUser/:userId').delete(ensureAuthenticated,function (req, res) {
-    const {userId} = req.params
-    console.log(userId)
-    /*User.find(function (err,result){
-        res.send(result)
-    });*/
+    const {userId} = req.params;
+    User.deleteOne({'_id': userId}, function (err, result) {
+        if (err){
+            console.log('Error in removing user: '+err);
+            return res.send(err);
+        }
+    });
+    res.status(200).send('User Removed Successfully');
+
 });
 
 
