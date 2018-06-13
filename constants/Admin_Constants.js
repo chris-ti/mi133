@@ -1,3 +1,5 @@
 export const USER_LIST = "USER_LIST";
 
 export const REMOVE_USER = "REMOVE_USER";
+
+export const BOAT_DESTINATION_LIST = "BOAT_DESTINATION_LIST"

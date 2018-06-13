@@ -1,6 +1,6 @@
 import { createStore, combineReducers,applyMiddleware } from "redux"
 import auth from "../reducers/auth_reducer"
-import {userList} from "../reducers/admin"
+import {userList,boatAndDestList} from "../reducers/admin"
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { browserHistory } from 'react-router';
@@ -9,7 +9,7 @@ import { routerReducer } from 'react-router-redux';
 import {logBook} from "../reducers/admin"
 
 const store = createStore(combineReducers({
-    auth, logBook,userList
+    auth, logBook,userList,boatAndDestList
         ,routing: routerReducer
     }),
     {},

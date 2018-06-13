@@ -3,11 +3,17 @@
     float: left;
 }
 
+.container{
+    height: 110px;
+}
 .adminheader{
     margin-top: 2%;
     width: 1200px;
 }
-
+.statusHeader{
+    margin-left: 2%;
+    padding: 2%;
+}
 .usermanagement-title{
     margin-top: 2%;
     text-align: center;
@@ -23,6 +29,16 @@
 }
 .adminList{
     float: left;
+}
+
+.logbookAdmin{
+    padding: 1%;
+    float: left;
+    width: 840px;
+    float: left;
+}
+.StatusContainer{
+
 }
 .usermgmt_container{
     margin-left: 10%;
@@ -85,4 +101,38 @@
     width: 350px;
     height: 450px;
     overflow: auto;
+}
+.tableBoat{
+    float: left;
+    width: 380px;
+    margin-left: 2%;
+}
+.tableDestination{
+    float: right;
+    width: 380px;
+    margin-right: 8%;
+}
+.BoatDetailsHeader{
+    margin-left: 1%;
+    padding: 2%;
+    text-align: center;
+}
+.containerBoat{
+    width: 900px;
+    height: 450px;
+}
+.managementContainer{
+    float: right;
+    padding: 1%;
+    margin-top: 1%;
+    width: 600px;
+    height: 350px;
+}
+
+.boatManagement{
+    float: left;
+}
+
+.destinationManagement{
+    float: right;
 }

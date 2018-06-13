@@ -1,18 +1,11 @@
 import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE, REGISTER_SUCCESS, LOGOUT, REGISTER_FAILURE} from "../constants/constants";
 import axios from "axios/index";
 import {browserHistory} from "react-router";
-import {REMOVE_USER, USER_LIST} from "../constants/Admin_Constants";
-
-let boat={
-    id:"",
-    boatName:"",
-    crew:[],
-    destination:"",
-    departure:"",
-    arrival:""
-}
+import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
 
 
+
+//Properties
 export function sendLoginDetails(user) {
     const {username, password} = user;
     return dispatch => {
@@ -32,6 +25,7 @@ export function sendLoginDetails(user) {
                 });
     };
     function failure(error) { return { type: LOGIN_FAILURE} }
+    function logUser(payload) { return { type: SIGNED_IN,payload };  }
 }
 
 export function logout(){
@@ -43,7 +37,6 @@ export function logout(){
 }
 
 export function sendRegisterDetails(user) {
-
     return dispatch => {
         axios.post('/api/auth/registerUser', user)
             .then(res =>
@@ -54,36 +47,57 @@ export function sendRegisterDetails(user) {
 
     };
     function registerFailure(error) { return { type: REGISTER_FAILURE} }
+    function registerUser(user) { const action={ type: REGISTER_SUCCESS,user }; return action; }
 }
 
+export function sendBoatRegisterDetails(boat) {
+    console.log(boat);
+    return dispatch=>{
 
-function logUser(payload) {
-    const action={
-        type: SIGNED_IN,payload
     }
-    return action;
 }
 
-function registerUser(user) {
-    const action={
-        type: REGISTER_SUCCESS,user
+export function sendDestinationDetails(destination) {
+    console.log(destination);
+    return dispatch=>{
+
     }
-    return action;
 }
+
+export function loadAllBoatAndDestinationDetails() {
+    const boatData=[];
+    const destinationData=[];
+    const data={
+        boatData,
+        destinationData
+    };
+    boatData.push({_id:"1",boatName:"boat1",maxCrew:'10',available: true});
+    boatData.push({_id:"2",boatName:"boat2",maxCrew:'10',available:true});
+    boatData.push({_id:"3",boatName:"boat3",maxCrew:'10',available:false});
+    destinationData.push({_id:"1",destination:'dest1',travelTime:'1'});
+    destinationData.push({_id:"2",destination:'dest2',travelTime:'2'})
+    return dispatch=>{
+        dispatch(loadReceivedBoatAndDestinationData(data))
+    }
+
+    function loadReceivedBoatAndDestinationData(data) {
+        return{ type: BOAT_DESTINATION_LIST , data};
+    }
+}
+
+
 
 
 export function loadAllUsers(){
     return dispatch => {
         axios.get('/api/getAllUsers').then(res => {
-            console.log(res.data)
                dispatch(loadReceivedUser(res.data))
             });
     }
+    function loadReceivedUser(data) { return{ type: USER_LIST , data}; }
 }
 
-function loadReceivedUser(data) {
-    return{ type: USER_LIST , data};
-}
+
 
 export function deleteUserAction(_id) {
     return dispatch => {
@@ -91,12 +105,11 @@ export function deleteUserAction(_id) {
             console.log(res.data);
             dispatch(updateDeletedUser(_id))
         });
-    }
+    };
+    function updateDeletedUser(userId) { return {type: REMOVE_USER , userId }; }
 }
 
-function updateDeletedUser(userId) {
-    return {type: REMOVE_USER , userId };
-}
+
 
 export function loadingDashboard() {
     const data=[];
@@ -110,10 +123,7 @@ export function loadingDashboard() {
     data.push({id:"5",boatName:"boat5",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
     return dispatch => {
         dispatch(dashboardDisplay(data));
-    }
-
+    };
+    function dashboardDisplay(currentData) { return { type: "LOG_BOOK", currentData } }
 }
 
-function dashboardDisplay(currentData) {
-    return { type: "LOG_BOOK", currentData }
-}

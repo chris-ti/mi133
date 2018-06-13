@@ -6,7 +6,7 @@ var destination = new Schema({
     destination: {
         type: String
     },
-    Traveltime: {
+    travelTime: {
         type: Number
     }
 },{

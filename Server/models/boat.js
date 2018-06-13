@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var boat = new Schema({
-    boatname: {
+    boatName: {
         type: String
     },
     crew: [
@@ -11,8 +11,11 @@ var boat = new Schema({
 			type: String
         }
     ],
-    maxcrew:{
+    maxCrew:{
         type: Number
+    },
+    available:{
+        type: Boolean
     }
 },{
     collection: 'boat'

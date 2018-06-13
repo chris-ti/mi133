@@ -16,6 +16,7 @@ class RemoveMember extends Component{
 
     render(){
         const allUsers=Object.assign([],this.props.userList);
+        const currentUser = Object.assign(({},this.props.auth));
         const adminUser= allUsers.filter( function (each) {
             return each.role === "ADMIN";
         })
@@ -33,7 +34,7 @@ class RemoveMember extends Component{
                                 return <tr className={'listRemoveAdmin'} key={data._id}>
                                     <td className={"listUsernameAdmin"}>{data.username}
                                     </td>
-                                    <div className={"btn btn-danger removeAdmin"} onClick={()=>this.deleteUser(data._id)} >Remove</div>
+                                    <button className={"btn btn-danger removeAdmin"} onClick={()=>this.deleteUser(data._id)} disabled={data._id===currentUser._id ? 'true' : ''} >Remove</button>
                                 </tr>
                             })}
                         </div>
@@ -45,7 +46,7 @@ class RemoveMember extends Component{
                                 return <tr className={'listRemoveAdmin'} key={data._id}>
                                     <td className={"listUsernameAdmin"}>{data.username}
                                     </td>
-                                    <div className={"btn btn-danger removeAdmin"} onClick={()=>this.deleteUser(data._id)} >Remove</div>
+                                    <button className={"btn btn-danger removeAdmin"} onClick={()=>this.deleteUser(data._id)}  >Remove</button>
                                 </tr>
                             })}
                         </div>
@@ -58,7 +59,7 @@ class RemoveMember extends Component{
     }
 }
 
-const mapStateToProps = ({userList}) => ({userList});
+const mapStateToProps = ({userList,auth}) => ({userList,auth});
 
 const mapDispatchToProps = {
     loadAllUsers,
