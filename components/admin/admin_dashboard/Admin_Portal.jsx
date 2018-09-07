@@ -6,6 +6,8 @@ import {loadingDashboard, logout} from "../../../actions/Admin_actions";
 import Boat_Details from "./Boat_Details";
 import Boat_Management from "./Boat_Management";
 import Destination_Management from "./Destination_Management";
+import LogBook from "../LogBook"
+
 class dashboard extends React.Component{
 
     signout(){
@@ -30,35 +32,7 @@ class dashboard extends React.Component{
             <div className={"StatusContainer"}>
                 <div className={"logbookAdmin"}>
                     <h2 className={"statusHeader"}>LOGBOOK</h2>
-                    <table className="table">
-                        <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">Boat</th>
-                            <th scope="col">Crew</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Departure</th>
-                            <th scope="col">Arrival</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {logBook.map(data=>{
-                            return <tr key={data.id}>
-                                <td>{data.boatName}
-                                </td>
-                                <td>{data.crew}
-                                </td>
-                                <td>{data.destination}
-                                </td>
-                                <td>
-                                    {data.departure.getDate()}-{data.departure.getMonth()}-{data.departure.getFullYear()},{data.departure.getHours()}:{data.departure.getMinutes()<10 ? "0"+data.departure.getMinutes(): data.departure.getMinutes()}
-                                </td>
-                                <td>
-                                    {data.arrival.getDate()}-{data.arrival.getMonth()}-{data.arrival.getFullYear()},{data.arrival.getHours()}:{data.arrival.getMinutes()<10 ? "0"+data.arrival.getMinutes(): data.arrival.getMinutes()}
-                                </td>
-                            </tr>
-                        })}
-                        </tbody>
-                    </table>
+                    <LogBook/>
                     <div>
                         <Boat_Details/>
                     </div>
