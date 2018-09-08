@@ -59,7 +59,7 @@ class Boat_Details extends React.Component {
                             return <tr key={data._id}>
                                 <td>{data.destination}
                                 </td>
-                                <td>{data.travelTime}
+                                <td>{data.travelTime}Hr
                                 </td>
                                 <td>
                                     <button className={"btn btn-danger "}  >Remove</button>
