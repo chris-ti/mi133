@@ -4,9 +4,6 @@ const Schema = mongoose.Schema;
 var _ = require('lodash');
 
 var user = new Schema({
-    id: {
-        type: String
-    },
     name: {
         type: String
     },

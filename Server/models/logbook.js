@@ -28,5 +28,3 @@ var logbook = new Schema({
 module.exports = mongoose.model('logbook', logbook);
 
 //table address book example contacts.js/meapi.js --> save function carries /id withit. use id in poo
- 
- 

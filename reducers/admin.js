@@ -5,7 +5,7 @@ import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_C
 export function logBook (state ={},action){
     switch (action.type) {
         case LOG_BOOK:
-            return Object.assign([],action.currentData);
+        return Object.assign([],action.currentData);
         default:
             return state;
     }
@@ -35,7 +35,7 @@ export function userList(state={},action) {
         default:
             return state;
     }
-    
+
 }
 
 export function boatAndDestList(state={},action) {

@@ -1,14 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var user = require('./user.js')
 
 var boat = new Schema({
     boatName: {
         type: String
     },
-    crew: [
+    crewName: [
         {
-            type: String,
 			type: String
+        }
+    ],
+    crewid: [
+        {
+          type: Schema.Types.ObjectId,
+      		required: true,
+      		ref: user
         }
     ],
     maxCrew:{

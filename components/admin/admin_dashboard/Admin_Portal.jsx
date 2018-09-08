@@ -43,18 +43,18 @@ class dashboard extends React.Component{
                         <tbody>
                         {logBook.map(data=>{
                             return <tr key={data.id}>
-                                <td>{data.boatName}
-                                </td>
-                                <td>{data.crew}
-                                </td>
-                                <td>{data.destination}
-                                </td>
-                                <td>
-                                    {data.departure.getDate()}-{data.departure.getMonth()}-{data.departure.getFullYear()},{data.departure.getHours()}:{data.departure.getMinutes()<10 ? "0"+data.departure.getMinutes(): data.departure.getMinutes()}
-                                </td>
-                                <td>
-                                    {data.arrival.getDate()}-{data.arrival.getMonth()}-{data.arrival.getFullYear()},{data.arrival.getHours()}:{data.arrival.getMinutes()<10 ? "0"+data.arrival.getMinutes(): data.arrival.getMinutes()}
-                                </td>
+                              <td>{data.boat.boatName}
+                              </td>
+                              <td>{ data.boat.crewName}
+                              </td>
+                              <td>{data.destination.destination}
+                              </td>
+                              <td>
+                                  {new Date(data.departure).getDate()}-{new Date(data.departure).getMonth()}-{new Date(data.departure).getFullYear()},{new Date(data.departure).getHours()}:{new Date(data.departure).getMinutes() < 10 ? ('0' + new Date(data.departure).getMinutes()) : new Date(data.departure).getMinutes()}
+                              </td>
+                              <td>
+                                  {new Date(data.arrival).getDate()}-{new Date(data.arrival).getMonth()}-{new Date(data.arrival).getFullYear()},{new Date(data.arrival).getHours()}:{new Date(data.arrival).getMinutes() < 10 ? ('0' + new Date(data.arrival).getMinutes()) : new Date(data.arrival).getMinutes()}
+                              </td>
                             </tr>
                         })}
                         </tbody>

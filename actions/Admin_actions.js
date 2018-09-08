@@ -3,8 +3,6 @@ import axios from "axios/index";
 import {browserHistory} from "react-router";
 import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
 
-
-
 //Properties
 export function sendLoginDetails(user) {
     const {username, password} = user;
@@ -12,7 +10,7 @@ export function sendLoginDetails(user) {
         axios.post('/api/auth/login', {username, password})
             .then(res => {
                 if (res.status === 200) {
-                    if(res.data.role ==="ADMIN"){
+                    if(res.data.role ==="Admin"){
                         browserHistory.push('/admin_dashboard');
                     }else{
                         browserHistory.push('/member_dashboard');
@@ -112,18 +110,24 @@ export function deleteUserAction(_id) {
 
 
 export function loadingDashboard() {
-    const data=[];
-    //TBD
-    //API call for actual data from backend
 
-    data.push({id:"1",boatName:"boat1",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
-    data.push({id:"2",boatName:"boat2",crew:["crew1","crew2"],destination:"dest2",departure:new Date(),arrival:new Date()});
-    data.push({id:"3",boatName:"boat3",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
-    data.push({id:"4",boatName:"boat4",crew:["crew1","crew2"],destination:"dest3",departure:new Date(),arrival:new Date()});
-    data.push({id:"5",boatName:"boat5",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
+
     return dispatch => {
-        dispatch(dashboardDisplay(data));
+        axios.get(`/api/getLogbook`).then(res => {
+            console.log(res.data);
+            dispatch(dashboardDisplay(res.data));
+        });
     };
     function dashboardDisplay(currentData) { return { type: "LOG_BOOK", currentData } }
-}
 
+    //const data=[];
+    //data.push({id:"1",boatName:"boat1",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
+    //data.push({id:"2",boatName:"boat2",crew:["crew1","crew2"],destination:"dest2",departure:new Date(),arrival:new Date()});
+    //data.push({id:"3",boatName:"boat3",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
+    //data.push({id:"4",boatName:"boat4",crew:["crew1","crew2"],destination:"dest3",departure:new Date(),arrival:new Date()});
+    //data.push({id:"5",boatName:"boat5",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
+    //return dispatch => {
+    //    dispatch(dashboardDisplay(data));
+    //};
+
+}
