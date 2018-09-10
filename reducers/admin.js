@@ -1,5 +1,5 @@
 import {LOG_BOOK, REGISTER_FAILURE, REGISTER_SUCCESS, SIGNED_IN, SUB} from "../constants/constants";
-import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
+import {REMOVE_USER, USER_LIST,BOAT_LIST,DEST_LIST} from "../constants/Admin_Constants";
 
 
 export function socket(state ={},action){
@@ -49,22 +49,43 @@ export function userList(state={},action) {
 
 }
 
-export function boatAndDestList(state={},action) {
-    let list = [];
-    switch (action.type){
-        case BOAT_DESTINATION_LIST:
-            list = Object.assign([],action.data); //changed from {}
-            return list
-        case REMOVE_USER:
-            list = refreshAfterDelete(state,action.userId);
-            return list;
-        case REGISTER_SUCCESS:
-            list = [...state,action.user]
-            return list;
-        case REGISTER_FAILURE:
-            alert('Registration Failed');
+export function boatList (state ={},action){
+    switch (action.type) {
+        case BOAT_LIST:
+        return Object.assign([],action.currentData);
         default:
             return state;
     }
 
 }
+
+export function destList (state ={},action){
+    switch (action.type) {
+        case DEST_LIST:
+        return Object.assign([],action.currentData);
+        default:
+            return state;
+    }
+
+}
+
+
+
+//export function DestList(state={},action) {
+//    let list = [];
+//    switch (action.type){
+//        case BOAT_DESTINATION_LIST:
+//            list = Object.assign([],action.data); //changed from {}
+//            return list
+//        case REMOVE_USER:
+//            list = refreshAfterDelete(state,action.userId);
+//            return list;
+//        case REGISTER_SUCCESS:
+//            list = [...state,action.user]
+//            return list;
+//        case REGISTER_FAILURE:
+//            alert('Registration Failed');
+//        default:
+//            return state;
+//    }
+//}

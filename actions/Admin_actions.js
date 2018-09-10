@@ -63,37 +63,25 @@ export function sendDestinationDetails(destination) {
     }
 }
 
-export function loadAllBoatAndDestinationDetails() {
-  return dispatch=> {
-      axios.get('/api/getBoatsandDestination').then(res => {
-        dispatch(loadReceivedBoatAndDestinationData(res.data));
-      });
-  }
-  function loadReceivedBoatAndDestinationData(data) {
-      return{ type: BOAT_DESTINATION_LIST , data};
-  }
-
-    //const boatData=[];
-    //const destinationData=[];
-    //const data={
-    //    boatData,
-    //    destinationData
-    //};
-    //boatData.push({_id:"1",boatName:"boat1",maxCrew:'10',available: true});
-    //boatData.push({_id:"2",boatName:"boat2",maxCrew:'10',available:true});
-    //boatData.push({_id:"3",boatName:"boat3",maxCrew:'10',available:false});
-    //destinationData.push({_id:"1",destination:'dest1',travelTime:'1'});
-    //destinationData.push({_id:"2",destination:'dest2',travelTime:'2'})
-    //dispatch(loadReceivedBoatAndDestinationData(data));
-    //function loadReceivedBoatAndDestinationData(data) {
-    //    return{ type: BOAT_DESTINATION_LIST , data};
-    //}
-
+export function loadingBoats() {
+    return dispatch => {
+        axios.get(`/api/getBoats`).then(res => {
+            dispatch(loadReceivedBoats(res.data));
+        });
+    };
+    function loadReceivedBoats(currentData) { return { type: "BOAT_LIST", currentData } }
 
 }
 
+export function loadingDestinations() {
+    return dispatch => {
+        axios.get(`/api/getDestinations`).then(res => {
+            dispatch(loadReceivedDestinations(res.data));
+        });
+    };
+    function loadReceivedDestinations(currentData) { return { type: "DEST_LIST", currentData } }
 
-
+}
 
 export function loadAllUsers(){
     return dispatch => {
@@ -150,10 +138,10 @@ export function subscribeLogbook(connected) {
     function subscribe(connected){return {type: "SUB", connected}}
 }
 
-export function unsubscribeLogbook(socket) {
-    return dispatch => {
+//export function unsubscribeLogbook(socket) {
+//    return dispatch => {
       //socket.emit('unsubscribe');
-      return dispatch(unsub());
-    }
-    function unsub() { return {type: "UNSUB" }}
-}
+//      return dispatch(unsub());
+//    }
+//    function unsub() { return {type: "UNSUB" }}
+//}

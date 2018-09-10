@@ -23,7 +23,7 @@ mongoose.connect(config.DB).then(
     () => {
       console.log('Database is connected');
 
-      if(true){
+      if(false){
       // CREATE sample data to work with
       var user1= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
       var user2= new User({name: "Emily", username: "emily1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
@@ -51,9 +51,9 @@ mongoose.connect(config.DB).then(
       })
 
 
-      var destination1 = new Destination({destination: "Kiel Heikendorf", TravelTime: "60"})
-      var destination2 = new Destination({destination: "Kiel Strande", TravelTime: "240"})
-      var destination3 = new Destination({destination: "Kiel Holtenau", TravelTime: "120"})
+      var destination1 = new Destination({destination: "Kiel Heikendorf", travelTime: "2"})
+      var destination2 = new Destination({destination: "Kiel Strande", travelTime: "1"})
+      var destination3 = new Destination({destination: "Kiel Holtenau", travelTime: "3"})
       destination1.save(function (err) {
         if(err) return console.error(err);
       })
@@ -81,6 +81,7 @@ mongoose.connect(config.DB).then(
       logbook2.save(function (err) {
         if(err) return console.error(err);
       })
+      console.log('creation of sample data complete');
       };
 
       //drop the content of all model to start fresh

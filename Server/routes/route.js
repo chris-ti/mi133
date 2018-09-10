@@ -13,16 +13,16 @@ LogBookRouter.route('/getAllUsers').get(ensureAuthenticated,function (req, res) 
     });
 });
 
-LogBookRouter.route('/getBoatsandDestination').get(ensureAuthenticated,function (req, res) {
+LogBookRouter.route('/getBoats').get(ensureAuthenticated,function (req, res) {
+    Boat.find(function (err,result){
+        res.send(result)
+    });
+});
 
-  LogBook.find()
-  .populate({path: 'destination',model: Destination})
-  .populate({path: 'boat', model: Boat})
-  .exec(function(err,logbooks){
-    if(err){ console.log(err); return res.send(err);};
-    res.send(logbooks);
-  })
-
+LogBookRouter.route('/getDestinations').get(ensureAuthenticated,function (req, res) {
+    Destination.find(function (err,result){
+        res.send(result)
+    });
 });
 
 LogBookRouter.route('/deleteUser/:userId').delete(ensureAuthenticated,function (req, res) {

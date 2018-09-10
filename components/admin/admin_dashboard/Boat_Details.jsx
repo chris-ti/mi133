@@ -1,19 +1,19 @@
 import React from 'react';
 import "./Admin_Portal.css"
 import { connect } from "react-redux"
-import {loadAllBoatAndDestinationDetails} from "../../../actions/Admin_actions";
+import {loadingDestinations,loadingBoats} from "../../../actions/Admin_actions";
 
 class Boat_Details extends React.Component {
 
     componentDidMount(){
-        this.props.loadAllBoatAndDestinationDetails()
+        this.props.loadingDestinations()
+        this.props.loadingBoats()
     }
 
-
     render() {
-        const allDetails=Object.assign({},this.props.boatAndDestList);
-        const boat = Object.assign([],allDetails.boatData);
-        const destination = Object.assign([],allDetails.destinationData);
+        const boat = Object.assign([],this.props.boatList);
+        const destination = Object.assign([],this.props.destList);
+
         console.log(boat);
         return (
             <div className={"containerBoat"}>
@@ -59,7 +59,7 @@ class Boat_Details extends React.Component {
                             return <tr key={data._id}>
                                 <td>{data.destination}
                                 </td>
-                                <td>{data.travelTime}Hr
+                                <td>{data.travelTime} Hr
                                 </td>
                                 <td>
                                     <button className={"btn btn-danger "}  >Remove</button>
@@ -75,10 +75,11 @@ class Boat_Details extends React.Component {
 
     }
 }
-const mapStateToProps = ({boatAndDestList}) => ({boatAndDestList});
+const mapStateToProps = ({boatList,destList}) => ({boatList,destList});
 
 const mapDispatchToProps = {
-    loadAllBoatAndDestinationDetails
+    loadingBoats,
+    loadingDestinations
 };
 
 export default  connect(mapStateToProps,mapDispatchToProps )(Boat_Details)
