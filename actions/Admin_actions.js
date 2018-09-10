@@ -51,17 +51,29 @@ export function sendRegisterDetails(user) {
 
 export function sendBoatRegisterDetails(boat) {
     console.log(boat);
-    return dispatch=>{
-
-    }
+    axios.post('/api/registerBoat', boat)
+        .then(res =>
+            dispatch(registerBoat(res.data))
+        ),function (error) {
+                dispatch(registerBoatFailure(error))
+            }
 }
+function registerBoat(data) {return {type: REGISTER_SUCCESS_BOAT, boat}}
+function registerBoatFailure(error){ return { REGISTER_FAILURE_BOAT}}
+//TBD
 
 export function sendDestinationDetails(destination) {
     console.log(destination);
-    return dispatch=>{
-
-    }
+    axios.post('/api/registerDestination', destination)
+        .then(res =>
+            dispatch(registerDestination(res.data))
+        ),function (error) {
+                dispatch(registerFailure(error))
+                }
 }
+function registerDestination(destination){ return {type: REGISTER_DESTINATION_SUCCESS, destination}}
+function registerDestFailure(error){ return {type: REGISTER_FAILURE_DESTINATION}}
+//TBD Constants are unused
 
 export function loadingBoats() {
     return dispatch => {
@@ -104,6 +116,25 @@ export function deleteUserAction(_id) {
     function updateDeletedUser(userId) { return {type: REMOVE_USER , userId }; }
 }
 
+export function deleteBoatAction(_id) {
+    return dispatch=>{
+        axios.delete(`/api/deleteBoat/${_id}`).then(res => {
+          console.log(res.data);
+          dispatcht(deleteBoat);
+        })
+    }
+    function deleteBoat(boatId){return {type: REMOVE_BOAT, boatId}; }
+}
+
+export function deleteDestinationAction(_id) {
+    return dispatch=>{
+      axios.delete(`/api/deleteDestination/${_id}`).then(res => {
+        console.log(res.data);
+        dispatcht(deleteDestination);
+      })
+    }
+    function deleteDestination(destId){return {type: REMOVE_DEST, destId}; }
+}
 
 
 export function loadingDashboard() {

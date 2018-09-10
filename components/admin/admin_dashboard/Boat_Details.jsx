@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Admin_Portal.css"
 import { connect } from "react-redux"
-import {loadingDestinations,loadingBoats} from "../../../actions/Admin_actions";
+import {loadingDestinations,loadingBoats,deleteBoatAction,deleteDestinationAction} from "../../../actions/Admin_actions";
 
 class Boat_Details extends React.Component {
 
@@ -38,7 +38,7 @@ class Boat_Details extends React.Component {
                                 <td>{data.available? "Yes" : "No"}
                                 </td>
                                 <td>
-                                    <button className={"btn btn-danger "}  >Remove</button>
+                                  <button className={"btn btn-danger removeBoat"} onClick={()=>this.props.deleteBoatAction(data._id)}  >Remove</button>
                                 </td>
                             </tr>
                         })}
@@ -62,7 +62,7 @@ class Boat_Details extends React.Component {
                                 <td>{data.travelTime} Hr
                                 </td>
                                 <td>
-                                    <button className={"btn btn-danger "}  >Remove</button>
+                                    <button className={"btn btn-danger removeDestination"} onClick={()=>this.props.deleteDestinationAction(data._id)}  >Remove</button>
                                 </td>
                             </tr>
                         })}
@@ -79,7 +79,9 @@ const mapStateToProps = ({boatList,destList}) => ({boatList,destList});
 
 const mapDispatchToProps = {
     loadingBoats,
-    loadingDestinations
+    loadingDestinations,
+    deleteBoatAction,
+    deleteDestinationAction
 };
 
 export default  connect(mapStateToProps,mapDispatchToProps )(Boat_Details)

@@ -10,7 +10,7 @@ module.exports= function authApi(route) {
     })
 
     route.route('/auth/registerUser').post(function (req, res) {
-        var username = req.body.username;
+        var username = req.body.user.username;
         //fetches user using username from mongodb
         User.findOne({'username': username},function(err, user) {
             // In case of any error return
