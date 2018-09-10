@@ -11,13 +11,6 @@ var boat = new Schema({
 			type: String
         }
     ],
-    crewid: [
-        {
-          type: Schema.Types.ObjectId,
-      		required: true,
-      		ref: user
-        }
-    ],
     maxCrew:{
         type: Number
     },

@@ -26,9 +26,9 @@ class LogBook extends React.Component{
                     <tbody>
                       {logBook.map(data=>{
                           return <tr key={data.id}>
-                            <td>{data.boat.boatName}
+                            <td>{data.boatName}
                             </td>
-                            <td>{ data.boat.crewName}
+                            <td>{ data.crewName}
                             </td>
                             <td>{data.destination.destination}
                             </td>

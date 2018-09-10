@@ -11,7 +11,7 @@ export function sendLoginDetails(user) {
         axios.post('/api/auth/login', {username, password})
             .then(res => {
                 if (res.status === 200) {
-                    if(res.data.role ==="Admin"){
+                    if(res.data.role ==="ADMIN"){
                         browserHistory.push('/admin_dashboard');
                     }else{
                         browserHistory.push('/member_dashboard');

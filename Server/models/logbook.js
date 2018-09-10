@@ -4,11 +4,12 @@ var boat = require('./boat.js')
 var destination= require('./destination.js')
 
 var logbook = new Schema({
-    boat: {
-		type: Schema.Types.ObjectId,
-		required: true,
-		ref: boat
+    boatName: {
+		type: String
 	},
+    crewName: [{
+        type: String
+    }],
 	destination:{
 		type: Schema.Types.ObjectId,
 		required: true,

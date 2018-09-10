@@ -41,7 +41,6 @@ LogBookRouter.route('/getLogbook').get(function(req, res){
 
     LogBook.find()
     .populate({path: 'destination',model: Destination})
-    .populate({path: 'boat', model: Boat})
     .exec(function(err,logbooks){
       if(err){ console.log(err); return res.send(err);};
       res.send(logbooks);

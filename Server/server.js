@@ -23,14 +23,14 @@ mongoose.connect(config.DB).then(
     () => {
       console.log('Database is connected');
 
-      if(false){
+      if(true){
       // CREATE sample data to work with
-      var user1= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
-      var user2= new User({name: "Emily", username: "emily1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
-      var user3= new User({name: "Jess", username: "jess1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
-      var user4= new User({name: "Michael", username: "michael1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
-      var user5= new User({name: "Nicole", username: "nicole1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
-      var admin1= new User({name: "Chris", username: "chris1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "Admin"});
+      var user1= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user2= new User({name: "Emily", username: "emily1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user3= new User({name: "Jess", username: "jess1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user4= new User({name: "Michael", username: "michael1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user5= new User({name: "Nicole", username: "nicole1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var admin1= new User({name: "Chris", username: "chris1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "ADMIN"});
       user1.save(function (err, user1) {
         if(err) return console.error(err);
       })
@@ -64,8 +64,8 @@ mongoose.connect(config.DB).then(
         if(err) return console.error(err);
       })
 
-      var boat1 = new Boat({boatName: "Columbus", crewName: ["Bob","Emily","Jess",user4.name], crewid:[user1._id,user2._id,user3._id,user4._id], maxCrew: 4, available: true});
-      var boat2 = new Boat({boatName: "ColumbusII", crewName: [user1.name], crewid:[user1._id], maxCrew: 6, available: true});
+      var boat1 = new Boat({boatName: "Columbus", crewName: ["Bob","Emily","Jess",user4.name], maxCrew: 4, available: true});
+      var boat2 = new Boat({boatName: "ColumbusII", crewName: [user1.name],  maxCrew: 6, available: true});
       boat1.save(function (err) {
         if(err) return console.error(err);
       })
@@ -73,8 +73,8 @@ mongoose.connect(config.DB).then(
         if(err) return console.error(err);
       })
 
-      var logbook1 = new Logbook({boat: boat1._id, destination: destination1._id, departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
-      var logbook2 = new Logbook({boat: boat2._id, destination: destination2._id, departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
+      var logbook1 = new Logbook({boatName: "Columbus",crewName: ["Bob","Emily","Jess",user4.name], destination: destination1._id, departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
+      var logbook2 = new Logbook({boatName: "ColumbusII",crewName: [user1.name], destination: destination2._id, departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
       logbook1.save(function (err) {
         if(err) return console.error(err);
       })
