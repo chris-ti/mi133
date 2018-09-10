@@ -121,9 +121,24 @@ export function subscribeLogbook(connected) {
     return dispatch => {
       if(connected){
         const socket = io('http://localhost:4200');
-        socket.on('change', () =>{
-          axios.get(`/api/getLogbook`).then(res => {
+        socket.on('changeLogbook', () =>{
+          axios.get('/api/getLogbook').then(res => {
               dispatch(dashboardDisplay(res.data));
+          });
+        });
+        socket.on('changeBoat', () =>{
+          axios.get('/api/getBoats').then(res => {
+              dispatch(loadReceivedBoats(res.data));
+          });
+        });
+        socket.on('changeDestination', () =>{
+          axios.get('/api/getDestinations').then(res => {
+              dispatch(loadReceivedDestinations(res.data));
+          });
+        });
+        socket.on('changeUser', () =>{
+          axios.get('/api/getAllUsers').then(res => {
+              dispatch(loadReceivedUser(res.data));
           });
         });
         connected = false;
@@ -135,13 +150,8 @@ export function subscribeLogbook(connected) {
 
     };
     function dashboardDisplay(currentData) { return { type: "LOG_BOOK", currentData } }
+    function loadReceivedBoats(currentData) { return { type: "BOAT_LIST", currentData } }
+    function loadReceivedDestinations(currentData) { return { type: "DEST_LIST", currentData } }
+    function loadReceivedUser(data) { return{ type: USER_LIST , data}; }
     function subscribe(connected){return {type: "SUB", connected}}
 }
-
-//export function unsubscribeLogbook(socket) {
-//    return dispatch => {
-      //socket.emit('unsubscribe');
-//      return dispatch(unsub());
-//    }
-//    function unsub() { return {type: "UNSUB" }}
-//}

@@ -3,9 +3,9 @@ var cookieParser = require('cookie-parser');
 const app = express();
 const passport = require('passport');
 
-
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+//const Pusher = require('pusher');
 const PORT = 4200;
 const cors = require('cors');
 const config = require('./Database');
@@ -49,7 +49,6 @@ mongoose.connect(config.DB).then(
       admin1.save(function (err) {
         if(err) return console.error(err);
       })
-
 
       var destination1 = new Destination({destination: "Kiel Heikendorf", travelTime: "2"})
       var destination2 = new Destination({destination: "Kiel Strande", travelTime: "1"})
@@ -104,7 +103,40 @@ mongoose.connect(config.DB).then(
       });
       };
 
+      const io = require('socket.io')(server);
 
+      io.on("connection", socket => {
+        console.log("New client connected")
+        socket.on("disconnect", () => {console.log("Client disconnected")});
+
+        var db = mongoose.connection;
+
+        const changeStreamLogbook = db.collection('logbook').watch();
+        const changeStreamBoat = db.collection('boat').watch();
+        const changeStreamDestination = db.collection('destination').watch();
+        const changeStreamUser = db.collection('user').watch();
+
+        changeStreamLogbook.on('change', function(change){
+          console.log('collection logbook has changed');
+          socket.emit('changeLogbook');
+        });
+
+        changeStreamBoat.on('change', function(change){
+          console.log('collection boat has changed');
+          socket.emit('changeBoat');
+        });
+
+        changeStreamDestination.on('change', function(change){
+          console.log('collection destination has changed');
+          socket.emit('changeDestination');
+
+        });
+        changeStreamUser.on('change', function(change){
+          console.log('collection user has changed');
+          socket.emit('changeUser');
+        });
+
+      });
 
 
     },
@@ -122,15 +154,4 @@ app.use(express.static('build'));
 app.use('/api',LogBookRouter);
 const server = app.listen(PORT, function(){
     console.log('Server is running on Port: ',PORT);
-});
-const io = require('socket.io')(server);
-
-io.on("connection", socket => {
-  console.log("New client connected"), setInterval(
-    () => io.emit('change'),
-    20000
-  );
-  socket.on('unsubscribe', () => {socket.disconnect(); console.log('server unsub')});
-  socket.on("disconnect", () => console.log("Client disconnected"));
-
 });
