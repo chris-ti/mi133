@@ -8,9 +8,9 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import {Router} from 'react-router'
 
 
-//const store = createStore(reducer);
 
 export default class App extends React.Component {
+
     render() {
         return <div className="root component">
           </div>

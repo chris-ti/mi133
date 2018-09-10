@@ -6,10 +6,10 @@ import logger from 'redux-logger';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore} from 'react-router-redux';
 import { routerReducer } from 'react-router-redux';
-import {logBook} from "../reducers/admin"
+import {logBook, socket} from "../reducers/admin"
 
 const store = createStore(combineReducers({
-    auth, logBook,userList,boatAndDestList
+    auth, logBook,userList,boatAndDestList, socket
         ,routing: routerReducer
     }),
     {},

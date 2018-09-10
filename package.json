@@ -42,8 +42,8 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "socket.io": "^2.1.1",
-    "sfcookies": "^1.0.2"
+    "sfcookies": "^1.0.2",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

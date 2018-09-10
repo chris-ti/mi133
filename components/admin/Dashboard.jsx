@@ -3,11 +3,23 @@ import "./Dashboard.css"
 import { connect } from "react-redux"
 import {browserHistory} from "react-router";
 import Logbook from "./LogBook"
+import {subscribeLogbook, unsubscribeLogbook} from "../../actions/Admin_actions";
+
 
 class dashboard extends React.Component{
 
-    render(){
 
+  //componentDidMount(){
+  //    console.log('subscribe dashboard');
+  //    this.props.subscribeLogbook();
+  //}
+
+  //componentWillUnmount() {
+  //  console.log('unsubscribe dashboard');
+  //  this.props.unsubscribeLogbook();
+  //}
+
+    render(){
         return <div>
             <div className={"container"}>
                 <div className={"header"}>
@@ -24,5 +36,9 @@ class dashboard extends React.Component{
 
 }
 
+//const mapDispatchToProps = {
+//    subscribeLogbook,
+//    unsubscribeLogbook
+//};
 
 export default dashboard

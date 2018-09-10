@@ -3,6 +3,7 @@ var cookieParser = require('cookie-parser');
 const app = express();
 const passport = require('passport');
 
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const PORT = 4200;
@@ -13,7 +14,6 @@ const LogBookRouter = require('./routes/route');
 const initAuth = require('./authenticate/init');
 const AuthAPI = require('./authenticate/AuthAPI');
 
-//export models for usage
 const User = require('./models/user.js');
 const Destination = require('./models/destination.js');
 const Logbook = require('./models/logbook.js');
@@ -25,12 +25,12 @@ mongoose.connect(config.DB).then(
 
       if(false){
       // CREATE sample data to work with
-      var user1= new User({name: "Bob", username: "bob1", password: "bob1", role: "User"});
-      var user2= new User({name: "Emily", username: "emily1", password: "emily1", role: "User"});
-      var user3= new User({name: "Jess", username: "jess1", password: "jess1", role: "User"});
-      var user4= new User({name: "Michael", username: "michael1", password: "michael1", role: "User"});
-      var user5= new User({name: "Nicole", username: "nicole1", password: "nicole1", role: "User"});
-      var admin1= new User({name: "Chris", username: "chris1", password: "chris1", role: "Admin"});
+      var user1= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
+      var user2= new User({name: "Emily", username: "emily1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
+      var user3= new User({name: "Jess", username: "jess1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
+      var user4= new User({name: "Michael", username: "michael1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
+      var user5= new User({name: "Nicole", username: "nicole1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "User"});
+      var admin1= new User({name: "Chris", username: "chris1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "Admin"});
       user1.save(function (err, user1) {
         if(err) return console.error(err);
       })
@@ -102,33 +102,13 @@ mongoose.connect(config.DB).then(
       console.log('logbookentries removed')
       });
       };
-      //user.find(function (err, users) {
-      //if(err) return console.error(err);
-      //console.log(users);
-      //})
-      //destination.find(function (err, destinations) {
-      //if(err) return console.error(err);
-      //console.log(destinations);
-      //})
-      //boat.find(function (err, boats) {
-      //if(err) return console.error(err);
-      //console.log(boats);
-      //})
-      //logbook.find(function (err, logbooks) {
-      //if(err) return console.error(err);
-      //console.log(logbooks);
-      //})
 
-      // show all entries of a model
-      //user.find(function (err, users) {
-      //if(err) return console.error(err);
-      //console.log(users);
-      //})
+
+
 
     },
     err => { console.log('Can not connect to the database' +err)
     });
-
 
 app.use(cors());
 app.use(cookieParser());
@@ -139,6 +119,17 @@ AuthAPI(LogBookRouter);
 app.use(express.static('build'));
 
 app.use('/api',LogBookRouter);
-app.listen(PORT, function(){
+const server = app.listen(PORT, function(){
     console.log('Server is running on Port: ',PORT);
+});
+const io = require('socket.io')(server);
+
+io.on("connection", socket => {
+  console.log("New client connected"), setInterval(
+    () => io.emit('change'),
+    20000
+  );
+  socket.on('unsubscribe', () => {socket.disconnect(); console.log('server unsub')});
+  socket.on("disconnect", () => console.log("Client disconnected"));
+
 });

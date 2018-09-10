@@ -9,6 +9,7 @@ class LogBook extends React.Component{
         this.props.loadingDashboard();
     }
 
+
     render(){
         let logBook=Object.assign([],this.props.logBook);
         return(

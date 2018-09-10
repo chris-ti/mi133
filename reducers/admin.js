@@ -1,6 +1,17 @@
-import {LOG_BOOK, REGISTER_FAILURE, REGISTER_SUCCESS, SIGNED_IN} from "../constants/constants";
+import {LOG_BOOK, REGISTER_FAILURE, REGISTER_SUCCESS, SIGNED_IN, SUB} from "../constants/constants";
 import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
 
+
+export function socket(state ={},action){
+  let connected = false;
+  switch (action.type) {
+      case SUB:
+      connected = action.connected;
+      return connected;
+      default:
+          return state;
+  }
+}
 
 export function logBook (state ={},action){
     switch (action.type) {
@@ -39,10 +50,10 @@ export function userList(state={},action) {
 }
 
 export function boatAndDestList(state={},action) {
-    let list = {};
+    let list = [];
     switch (action.type){
         case BOAT_DESTINATION_LIST:
-            list = Object.assign({},action.data);
+            list = Object.assign([],action.data); //changed from {}
             return list
         case REMOVE_USER:
             list = refreshAfterDelete(state,action.userId);

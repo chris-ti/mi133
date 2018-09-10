@@ -1,7 +1,8 @@
-import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE, REGISTER_SUCCESS, LOGOUT, REGISTER_FAILURE} from "../constants/constants";
+import {LOG_BOOK, SIGNED_IN, LOGIN_FAILURE, REGISTER_SUCCESS, LOGOUT, REGISTER_FAILURE, UNSUB} from "../constants/constants";
 import axios from "axios/index";
 import {browserHistory} from "react-router";
 import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
+import io from 'socket.io-client';
 
 //Properties
 export function sendLoginDetails(user) {
@@ -63,24 +64,32 @@ export function sendDestinationDetails(destination) {
 }
 
 export function loadAllBoatAndDestinationDetails() {
-    const boatData=[];
-    const destinationData=[];
-    const data={
-        boatData,
-        destinationData
-    };
-    boatData.push({_id:"1",boatName:"boat1",maxCrew:'10',available: true});
-    boatData.push({_id:"2",boatName:"boat2",maxCrew:'10',available:true});
-    boatData.push({_id:"3",boatName:"boat3",maxCrew:'10',available:false});
-    destinationData.push({_id:"1",destination:'dest1',travelTime:'1'});
-    destinationData.push({_id:"2",destination:'dest2',travelTime:'2'})
-    return dispatch=>{
-        dispatch(loadReceivedBoatAndDestinationData(data))
-    }
+  return dispatch=> {
+      axios.get('/api/getBoatsandDestination').then(res => {
+        dispatch(loadReceivedBoatAndDestinationData(res.data));
+      });
+  }
+  function loadReceivedBoatAndDestinationData(data) {
+      return{ type: BOAT_DESTINATION_LIST , data};
+  }
 
-    function loadReceivedBoatAndDestinationData(data) {
-        return{ type: BOAT_DESTINATION_LIST , data};
-    }
+    //const boatData=[];
+    //const destinationData=[];
+    //const data={
+    //    boatData,
+    //    destinationData
+    //};
+    //boatData.push({_id:"1",boatName:"boat1",maxCrew:'10',available: true});
+    //boatData.push({_id:"2",boatName:"boat2",maxCrew:'10',available:true});
+    //boatData.push({_id:"3",boatName:"boat3",maxCrew:'10',available:false});
+    //destinationData.push({_id:"1",destination:'dest1',travelTime:'1'});
+    //destinationData.push({_id:"2",destination:'dest2',travelTime:'2'})
+    //dispatch(loadReceivedBoatAndDestinationData(data));
+    //function loadReceivedBoatAndDestinationData(data) {
+    //    return{ type: BOAT_DESTINATION_LIST , data};
+    //}
+
+
 }
 
 
@@ -110,24 +119,41 @@ export function deleteUserAction(_id) {
 
 
 export function loadingDashboard() {
-
-
     return dispatch => {
         axios.get(`/api/getLogbook`).then(res => {
-            console.log(res.data);
             dispatch(dashboardDisplay(res.data));
         });
     };
     function dashboardDisplay(currentData) { return { type: "LOG_BOOK", currentData } }
 
-    //const data=[];
-    //data.push({id:"1",boatName:"boat1",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
-    //data.push({id:"2",boatName:"boat2",crew:["crew1","crew2"],destination:"dest2",departure:new Date(),arrival:new Date()});
-    //data.push({id:"3",boatName:"boat3",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
-    //data.push({id:"4",boatName:"boat4",crew:["crew1","crew2"],destination:"dest3",departure:new Date(),arrival:new Date()});
-    //data.push({id:"5",boatName:"boat5",crew:["crew1","crew2"],destination:"dest1",departure:new Date(),arrival:new Date()});
-    //return dispatch => {
-    //    dispatch(dashboardDisplay(data));
-    //};
+}
 
+
+export function subscribeLogbook(connected) {
+    return dispatch => {
+      if(connected){
+        const socket = io('http://localhost:4200');
+        socket.on('change', () =>{
+          axios.get(`/api/getLogbook`).then(res => {
+              dispatch(dashboardDisplay(res.data));
+          });
+        });
+        connected = false;
+        dispatch(subscribe(connected));
+      }
+      else{
+        return {type: "UNSUB"};
+      }
+
+    };
+    function dashboardDisplay(currentData) { return { type: "LOG_BOOK", currentData } }
+    function subscribe(connected){return {type: "SUB", connected}}
+}
+
+export function unsubscribeLogbook(socket) {
+    return dispatch => {
+      //socket.emit('unsubscribe');
+      return dispatch(unsub());
+    }
+    function unsub() { return {type: "UNSUB" }}
 }

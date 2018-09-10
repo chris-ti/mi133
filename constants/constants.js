@@ -9,3 +9,5 @@ export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
 export const LOGOUT = "LOGOUT";
+
+export const SUB = "SUB"
