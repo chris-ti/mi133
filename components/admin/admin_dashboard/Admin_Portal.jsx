@@ -2,7 +2,7 @@ import React from 'react';
 import "./Admin_Portal.css"
 import { connect } from "react-redux"
 import {browserHistory} from "react-router";
-import {loadingDashboard, logout, subscribeLogbook, unsubscribeLogbook} from "../../../actions/Admin_actions";
+import {loadingDashboard, logout, subscribeLogbook} from "../../../actions/Admin_actions";
 import Boat_Details from "./Boat_Details";
 import Boat_Management from "./Boat_Management";
 import Destination_Management from "./Destination_Management";
@@ -19,9 +19,8 @@ class dashboard extends React.Component{
     }
 
     componentDidMount(){
-        this.props.loadingDashboard();
+        //this.props.loadingDashboard();
         console.log('subscribe admindashboard');
-        console.log(this.props.socket);
         this.props.subscribeLogbook(this.props.socket);
     }
 
@@ -73,7 +72,6 @@ const mapDispatchToProps = {
     loadingDashboard,
     logout,
     subscribeLogbook,
-    unsubscribeLogbook
 };
 
 export default  connect(mapStateToProps,mapDispatchToProps)(dashboard)

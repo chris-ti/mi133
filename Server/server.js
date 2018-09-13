@@ -72,8 +72,8 @@ mongoose.connect(config.DB).then(
         if(err) return console.error(err);
       })
 
-      var logbook1 = new Logbook({boatName: "Columbus",crewName: ["Bob","Emily","Jess",user4.name], destination: destination1._id, departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
-      var logbook2 = new Logbook({boatName: "ColumbusII",crewName: [user1.name], destination: destination2._id, departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
+      var logbook1 = new Logbook({boatName: "Columbus",crewName: ["Bob","Emily","Jess",user4.name], destination: "Location1", departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
+      var logbook2 = new Logbook({boatName: "ColumbusII",crewName: [user1.name], destination: "Location2", departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
       logbook1.save(function (err) {
         if(err) return console.error(err);
       })

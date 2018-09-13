@@ -11,9 +11,7 @@ var logbook = new Schema({
         type: String
     }],
 	destination:{
-		type: Schema.Types.ObjectId,
-		required: true,
-		ref: destination
+		type: String
     },
     departure:{
         type:Date

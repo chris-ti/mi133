@@ -30,7 +30,7 @@ class LogBook extends React.Component{
                             </td>
                             <td>{ data.crewName}
                             </td>
-                            <td>{data.destination.destination}
+                            <td>{data.destination}
                             </td>
                             <td>
                                 {new Date(data.departure).getDate()}-{new Date(data.departure).getMonth()}-{new Date(data.departure).getFullYear()},{new Date(data.departure).getHours()}:{new Date(data.departure).getMinutes() < 10 ? ('0' + new Date(data.departure).getMinutes()) : new Date(data.departure).getMinutes()}

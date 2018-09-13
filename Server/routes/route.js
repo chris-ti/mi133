@@ -96,7 +96,6 @@ LogBookRouter.route('/getDestinations').get(ensureAuthenticated,function (req, r
 LogBookRouter.route('/getLogbook').get(function(req, res){
 
     LogBook.find()
-    .populate({path: 'destination',model: Destination})
     .exec(function(err,logbooks){
       if(err){ console.log(err); return res.send(err);};
       res.send(logbooks);
