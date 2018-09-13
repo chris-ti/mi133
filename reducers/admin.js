@@ -2,11 +2,12 @@ import {LOG_BOOK, REGISTER_FAILURE, REGISTER_SUCCESS, SIGNED_IN, SUB} from "../c
 import {REMOVE_USER, USER_LIST,BOAT_LIST,DEST_LIST} from "../constants/Admin_Constants";
 
 
+// safe whether the client already has a socket connection
 export function socket(state ={},action){
   let connected = false;
   switch (action.type) {
       case SUB:
-      connected = action.connected;
+      connected = action.needsConnection;
       return connected;
       default:
           return state;
@@ -68,24 +69,3 @@ export function destList (state ={},action){
     }
 
 }
-
-
-
-//export function DestList(state={},action) {
-//    let list = [];
-//    switch (action.type){
-//        case BOAT_DESTINATION_LIST:
-//            list = Object.assign([],action.data); //changed from {}
-//            return list
-//        case REMOVE_USER:
-//            list = refreshAfterDelete(state,action.userId);
-//            return list;
-//        case REGISTER_SUCCESS:
-//            list = [...state,action.user]
-//            return list;
-//        case REGISTER_FAILURE:
-//            alert('Registration Failed');
-//        default:
-//            return state;
-//    }
-//}

@@ -4,7 +4,6 @@ import {browserHistory} from "react-router";
 import {REMOVE_USER, USER_LIST,BOAT_DESTINATION_LIST} from "../constants/Admin_Constants";
 import io from 'socket.io-client';
 
-//Properties
 export function sendLoginDetails(user) {
     const {username, password} = user;
     return dispatch => {
@@ -60,7 +59,6 @@ export function sendBoatRegisterDetails(boat) {
 }
 function registerBoat(data) {return {type: REGISTER_SUCCESS_BOAT, boat}}
 function registerBoatFailure(error){ return { REGISTER_FAILURE_BOAT}}
-//TBD
 
 export function sendDestinationDetails(destination) {
     console.log(destination);
@@ -73,7 +71,6 @@ export function sendDestinationDetails(destination) {
 }
 function registerDestination(destination){ return {type: REGISTER_DESTINATION_SUCCESS, destination}}
 function registerDestFailure(error){ return {type: REGISTER_FAILURE_DESTINATION}}
-//TBD Constants are unused
 
 export function loadingBoats() {
     return dispatch => {
@@ -106,37 +103,6 @@ export function loadAllUsers(){
 
 
 
-export function deleteUserAction(_id) {
-    return dispatch => {
-        axios.delete(`/api/deleteUser/${_id}`).then(res => {
-            console.log(res.data);
-            dispatch(updateDeletedUser(_id))
-        });
-    };
-    function updateDeletedUser(userId) { return {type: REMOVE_USER , userId }; }
-}
-
-export function deleteBoatAction(_id) {
-    return dispatch=>{
-        axios.delete(`/api/deleteBoat/${_id}`).then(res => {
-          console.log(res.data);
-          dispatcht(deleteBoat);
-        })
-    }
-    function deleteBoat(boatId){return {type: REMOVE_BOAT, boatId}; }
-}
-
-export function deleteDestinationAction(_id) {
-    return dispatch=>{
-      axios.delete(`/api/deleteDestination/${_id}`).then(res => {
-        console.log(res.data);
-        dispatcht(deleteDestination);
-      })
-    }
-    function deleteDestination(destId){return {type: REMOVE_DEST, destId}; }
-}
-
-
 export function loadingDashboard() {
     return dispatch => {
         axios.get(`/api/getLogbook`).then(res => {
@@ -148,9 +114,11 @@ export function loadingDashboard() {
 }
 
 
-export function subscribeLogbook(connected) {
+export function subscribeLogbook(notConnected) {
     return dispatch => {
-      if(connected){
+
+      //initiate a socket connection on the client side
+      if(notConnected){
         const socket = io('http://localhost:4200');
         socket.on('changeLogbook', () =>{
           axios.get('/api/getLogbook').then(res => {
@@ -172,11 +140,10 @@ export function subscribeLogbook(connected) {
               dispatch(loadReceivedUser(res.data));
           });
         });
-        connected = false;
-        dispatch(subscribe(connected));
-      }
-      else{
-        return {type: "UNSUB"};
+
+        //to ensure only one subscription is given to each client
+        let needsConnection = false;
+        dispatch(subscribe(needsConnection));
       }
 
     };
@@ -184,5 +151,35 @@ export function subscribeLogbook(connected) {
     function loadReceivedBoats(currentData) { return { type: "BOAT_LIST", currentData } }
     function loadReceivedDestinations(currentData) { return { type: "DEST_LIST", currentData } }
     function loadReceivedUser(data) { return{ type: USER_LIST , data}; }
-    function subscribe(connected){return {type: "SUB", connected}}
+    function subscribe(needsConnection){return {type: "SUB", needsConnection}}
+}
+
+export function deleteUserAction(_id) {
+    return dispatch => {
+        axios.delete(`/api/deleteUser/${_id}`).then(res => {
+            console.log(res.data);
+            dispatch(updateDeletedUser(_id))
+        });
+    };
+    function updateDeletedUser(userId) { return {type: REMOVE_USER , userId }; }
+}
+
+export function deleteBoatAction(_id) {
+    return dispatch=>{
+        axios.delete(`/api/deleteBoat/${_id}`).then(res => {
+          console.log(res.data);
+          dispatch(deleteBoat);
+        })
+    }
+    function deleteBoat(boatId){return {type: REMOVE_BOAT, boatId}; }
+}
+
+export function deleteDestinationAction(_id) {
+    return dispatch=>{
+      axios.delete(`/api/deleteDestination/${_id}`).then(res => {
+        console.log(res.data);
+        dispatch(deleteDestination);
+      })
+    }
+    function deleteDestination(destId){return {type: REMOVE_DEST, destId}; }
 }

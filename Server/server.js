@@ -5,7 +5,6 @@ const passport = require('passport');
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-//const Pusher = require('pusher');
 const PORT = 4200;
 const cors = require('cors');
 const config = require('./Database');
@@ -23,13 +22,33 @@ mongoose.connect(config.DB).then(
     () => {
       console.log('Database is connected');
 
-      if(false){
-      // CREATE sample data to work with
-      var user1= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
-      var user2= new User({name: "Emily", username: "emily1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
-      var user3= new User({name: "Jess", username: "jess1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
-      var user4= new User({name: "Michael", username: "michael1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
-      var user5= new User({name: "Nicole", username: "nicole1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      let createSampleData = false;
+      let deleteSampleData = false;
+
+      if(deleteSampleData){
+      User.remove({}, function(err) {
+       if(err) return console.error(err);
+      console.log('users removed')
+      });
+      Boat.remove({}, function(err) {
+       if(err) return console.error(err);
+      console.log('boats removed')
+      });
+      Destination.remove({}, function(err) {
+       if(err) return console.error(err);
+      console.log('destinations removed')
+      });
+      Logbook.remove({}, function(err) {
+       if(err) return console.error(err);
+      console.log('logbookentries removed')
+      });
+      };
+
+      if(createSampleData){
+      var user1= new User({name: "Brenda", username: "brenda1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user2= new User({name: "Kelly", username: "kelly1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user3= new User({name: "Steve", username: "steve1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
+      var user4= new User({name: "Bob", username: "bob1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "MEMBER"});
       var admin1= new User({name: "Chris", username: "chris1", password: "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa", role: "ADMIN"});
       user1.save(function (err, user1) {
         if(err) return console.error(err);
@@ -49,6 +68,7 @@ mongoose.connect(config.DB).then(
       admin1.save(function (err) {
         if(err) return console.error(err);
       })
+      console.log("created User");
 
       var destination1 = new Destination({destination: "Kiel Heikendorf", travelTime: "2"})
       var destination2 = new Destination({destination: "Kiel Strande", travelTime: "1"})
@@ -62,55 +82,38 @@ mongoose.connect(config.DB).then(
       destination3.save(function (err) {
         if(err) return console.error(err);
       })
+      console.log("created destinations");
 
-      var boat1 = new Boat({boatName: "Columbus", crewName: ["Bob","Emily","Jess",user4.name], maxCrew: 4, available: true});
-      var boat2 = new Boat({boatName: "ColumbusII", crewName: [user1.name],  maxCrew: 6, available: true});
+      var boat1 = new Boat({boatName: "Columbus", crewName: [user1.name,user2.name], maxCrew: 4, available: true});
+      var boat2 = new Boat({boatName: "Seagull", crewName: [user3.name,user4.name],  maxCrew: 6, available: true});
       boat1.save(function (err) {
         if(err) return console.error(err);
       })
       boat2.save(function (err) {
         if(err) return console.error(err);
       })
+      console.log("created boats");
 
-      var logbook1 = new Logbook({boatName: "Columbus",crewName: ["Bob","Emily","Jess",user4.name], destination: "Location1", departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
-      var logbook2 = new Logbook({boatName: "ColumbusII",crewName: [user1.name], destination: "Location2", departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
+      var logbook1 = new Logbook({boatName: boat1.boatName,crewName: [user1.name,user2.name], destination: destination1.destination, departure: new Date('September 1, 2018 12:00:00') , arrival: new Date('September 1, 2018 12:30:00')});
+      var logbook2 = new Logbook({boatName: boat2.boatName,crewName: [user3.name,user4.name], destination: destination2.destination, departure: new Date('September 1, 2018 14:00:00') , arrival: new Date('September 1, 2018 15:30:00')});
       logbook1.save(function (err) {
         if(err) return console.error(err);
       })
       logbook2.save(function (err) {
         if(err) return console.error(err);
       })
-      console.log('creation of sample data complete');
+      console.log('created logbookentries');
       };
 
-      //drop the content of all model to start fresh
-      if(false){
-      User.remove({}, function(err) {
-       if(err) return console.error(err);
-      console.log('users removed')
-      });
-      Boat.remove({}, function(err) {
-       if(err) return console.error(err);
-      console.log('boats removed')
-      });
-      Destination.remove({}, function(err) {
-       if(err) return console.error(err);
-      console.log('destinations removed')
-      });
-      Logbook.remove({}, function(err) {
-       if(err) return console.error(err);
-      console.log('logbookentries removed')
-      });
-      };
 
-      const io = require('socket.io')(server);
-
-      io.on("connection", socket => {
+        //setup socket connection
+        const io = require('socket.io')(server);
+        io.on("connection", socket => {
         console.log("New client connected")
         socket.on("disconnect", () => {console.log("Client disconnected")});
 
+        //create changestreams to watch for database changes
         var db = mongoose.connection;
-
         const changeStreamLogbook = db.collection('logbook').watch();
         const changeStreamBoat = db.collection('boat').watch();
         const changeStreamDestination = db.collection('destination').watch();

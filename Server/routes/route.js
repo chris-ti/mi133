@@ -10,7 +10,7 @@ const Destination = require('../models/destination');
 LogBookRouter.route('/registerBoat').post(function (req, res) {
     var boatname =  req.body.boat.boatName;
 
-    //boat already there?
+    //check if boat already exists
     Boat.findOne({'boatName': boatname},function(err,boat){
       if(err){
         console.log('Error in boat Register: ' + err);
@@ -45,7 +45,7 @@ LogBookRouter.route('/registerBoat').post(function (req, res) {
 LogBookRouter.route('/registerDestination').post(function (req, res) {
     var destname =  req.body.destination.destination;
 
-    //destination already there?
+    //check if destination exists already
     Destination.findOne({'destination': destname },function(err,destination){
       if(err){
         console.log('Error in destination Register: ' + err);
@@ -75,6 +75,7 @@ LogBookRouter.route('/registerDestination').post(function (req, res) {
 
 });
 
+
 LogBookRouter.route('/getAllUsers').get(ensureAuthenticated,function (req, res) {
     User.find(function (err,result){
         res.send(result)
@@ -101,6 +102,7 @@ LogBookRouter.route('/getLogbook').get(function(req, res){
       res.send(logbooks);
     })
 });
+
 
 LogBookRouter.route('/deleteUser/:userId').delete(ensureAuthenticated,function (req, res) {
     const {userId} = req.params;
