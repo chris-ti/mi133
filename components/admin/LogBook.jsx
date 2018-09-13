@@ -12,6 +12,8 @@ class LogBook extends React.Component{
 
     render(){
         let logBook=Object.assign([],this.props.logBook);
+        let departure = new Date(this.props.logBook.departure);
+
         return(
                 <table className="table">
                     <thead className="thead-dark">
@@ -28,12 +30,12 @@ class LogBook extends React.Component{
                           return <tr key={data.id}>
                             <td>{data.boatName}
                             </td>
-                            <td>{ data.crewName}
+                            <td>{data.crewName}
                             </td>
                             <td>{data.destination}
                             </td>
                             <td>
-                                {new Date(data.departure).getDate()}-{new Date(data.departure).getMonth()}-{new Date(data.departure).getFullYear()},{new Date(data.departure).getHours()}:{new Date(data.departure).getMinutes() < 10 ? ('0' + new Date(data.departure).getMinutes()) : new Date(data.departure).getMinutes()}
+                                { new Date(data.departure).getDate()}-{new Date(data.departure).getMonth()}-{new Date(data.departure).getFullYear()},{new Date(data.departure).getHours()}:{new Date(data.departure).getMinutes() < 10 ? ('0' + new Date(data.departure).getMinutes()) : new Date(data.departure).getMinutes()}
                             </td>
                             <td>
                                 {new Date(data.arrival).getDate()}-{new Date(data.arrival).getMonth()}-{new Date(data.arrival).getFullYear()},{new Date(data.arrival).getHours()}:{new Date(data.arrival).getMinutes() < 10 ? ('0' + new Date(data.arrival).getMinutes()) : new Date(data.arrival).getMinutes()}

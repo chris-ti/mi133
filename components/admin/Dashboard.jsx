@@ -3,14 +3,8 @@ import "./Dashboard.css"
 import { connect } from "react-redux"
 import {browserHistory} from "react-router";
 import Logbook from "./LogBook"
-import {subscribeLogbook} from "../../actions/Admin_actions";
 
 class dashboard extends React.Component{
-
-  componentDidMount(){
-      console.log('subscribe for more data');
-      this.props.subscribeLogbook();
-  }
 
 
     render(){
@@ -30,12 +24,4 @@ class dashboard extends React.Component{
 
 }
 
-const mapStateToProps = ({socket}) => ({socket})
-
-const mapDispatchToProps = {
-    subscribeLogbook
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(dashboard)
-
-//export default dashboard
+export default dashboard
