@@ -30,7 +30,7 @@ class LogBook extends React.Component{
                           return <tr key={data.id}>
                             <td>{data.boatName}
                             </td>
-                            <td>{data.crewName}
+                            <td className={"crewName"}>{data.crewName.join(",")}
                             </td>
                             <td>{data.destination}
                             </td>
