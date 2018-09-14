@@ -1,16 +1,24 @@
 # mi133
 
+How to execute the application:
+(using the cmd)
 
-create DB in mongodb with name (logbook) with collection name (admin) and create a document as given below:
+step 1: clone this github project.
 
-password is 12345
+step 2: install mogodb
 
-{
-    "_id" : ObjectId("5b0d225e7577104664b20735"),
-    "username" : "testing",
-    "password" : "$2b$10$r30TSMaRWCRfV3ocInepmO3XLUH.Ht/cuZOeZspSHnr/V34KIrVBa",
-    "email" : "yatishkumar.r@gmail.com",
-    "first_Name" : "yatish",
-    "last_Name" : "kumar",
-    "__v" : 0
-}
+step 3: configure mongodb
+   inside your mongodbs bin directory (ex: .../Mongodb/Server/3.6/bin) execute "mongod --replSet "rs" "
+   
+   if this is the first time starting the mongodb, use a seperate cmd inside the mongodb bin directory and execute                
+   "mongo" and then 
+   "rs.initiate()"
+    
+step 4: inside the project direcory, use "npm install" to install the dependencies
+
+step 5: starting the application
+start the express server using "node Server/server.js"
+and start our webpack server using "npm start"
+(if the mongodb is not already started, follow the instructions of step 3)
+
+The application should now be available in the browser under "localhost:8080"
